@@ -1,0 +1,140 @@
+﻿<Window x:Class="CIDR_TO_IPv4_PRO.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CIDR_TO_IPv4_PRO"
+        mc:Ignorable="d"
+        Title="CIDR-To-IPv4-Pro" Height="500" Width="800" Icon="C:\Users\IDOR\Downloads\CIDR-TO-IPv4-PRO\CIDR-TO-IPv4-PRO\icon.png" >
+    <Window.Resources>
+        <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+        <Style x:Key="TextBoxRounded" TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="AllowDrop" Value="true"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True" Margin="0,0,0,6">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                        <Condition Property="IsSelectionActive" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <TextBlock HorizontalAlignment="Center" Height="70" Margin="0,6,0,0" TextWrapping="Wrap" Text="AN INTERACTIVE IP ADDRESS AND CIDR RANGE VISUALIZER" VerticalAlignment="Top" Width="370" TextAlignment="Center" FontFamily="Space Grotesk Bold" FontSize="20">
+            <TextBlock.Foreground>
+                <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                    <GradientStop Color="#FF512BD4"/>
+                    <GradientStop Color="#FFD600AA" Offset="1"/>
+                </LinearGradientBrush>
+            </TextBlock.Foreground>
+        </TextBlock>
+        <Border CornerRadius="7" BorderThickness="1" HorizontalAlignment="Center" Height="77" Margin="0,67,0,0" VerticalAlignment="Top" Width="712" Background="#FFDCD5F6">
+            <TextBlock FontFamily="Open Sans" HorizontalAlignment="Center" Height="64" TextWrapping="Wrap" VerticalAlignment="Center" Width="692"><Run FontWeight="Bold" Text="CIDR"/><Run Text=" is a notation for describing blocks of IP addresses and is used heavily in various networking configurations. IP addresses contain 4 octets, each consisting of 8 bits giving values between 0 and 255. The decimal value that comes after the slash is the number of bits consisting of the routing prefix. This in turn can be translated into a netmask, and also designates how many available addresses are in the block."/></TextBlock>
+        </Border>
+        <Border CornerRadius="7" BorderThickness="1" HorizontalAlignment="Center" Height="32" Margin="0,383,0,0" VerticalAlignment="Top" Width="588" Background="#FFFDF0DA">
+            <TextBlock FontFamily="Open Sans" HorizontalAlignment="Left" Height="16" TextWrapping="Wrap" VerticalAlignment="Center" Width="580" Text="* For routing mask values &lt;= 30, first and last IPs are base and broadcast addresses and are unusable." Margin="7,0,0,0"/>
+        </Border>
+
+            <StackPanel x:Name="StackPanel1" Orientation="Horizontal" Height="19" Width="88" Margin="-218,186,55,172" >
+                <TextBox x:Name="Bit7TextBox" Width="11" IsReadOnly="True" FontFamily="Open Sans" BorderBrush="#FFF35325" Background="{x:Null}"/>
+                <TextBox x:Name="Bit6TextBox" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FFF35325" Background="{x:Null}"/>
+                <TextBox x:Name="Bit5TextBox" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FFF35325" Background="{x:Null}"/>
+                <TextBox x:Name="Bit4TextBox" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FFF35325" Background="{x:Null}"/>
+                <TextBox x:Name="Bit3TextBox" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FFF35325" Background="{x:Null}"/>
+                <TextBox x:Name="Bit2TextBox" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FFF35325" Background="{x:Null}"/>
+                <TextBox x:Name="Bit1TextBox" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FFF35325" Background="{x:Null}"/>
+                <TextBox x:Name="Bit0TextBox" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FFF35325" Background="{x:Null}"/>
+            </StackPanel>
+        <StackPanel x:Name="StackPanel2" Orientation="Horizontal" Height="19" Width="88" Margin="-218,186,-133,172">
+                <TextBox x:Name="Bit7TextBox2" Width="11" IsReadOnly="True" FontFamily="Open Sans" BorderBrush="#FF81BC06" Background="{x:Null}"/>
+                <TextBox x:Name="Bit6TextBox2" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FF81BC06" Background="{x:Null}"/>
+                <TextBox x:Name="Bit5TextBox2" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FF81BC06" Background="{x:Null}"/>
+                <TextBox x:Name="Bit4TextBox2" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FF81BC06" Background="{x:Null}"/>
+                <TextBox x:Name="Bit3TextBox2" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FF81BC06" Background="{x:Null}"/>
+                <TextBox x:Name="Bit2TextBox2" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FF81BC06" Background="{x:Null}"/>
+                <TextBox x:Name="Bit1TextBox2" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FF81BC06" Background="{x:Null}"/>
+                <TextBox x:Name="Bit0TextBox2" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FF81BC06" Background="{x:Null}"/>
+            </StackPanel>
+        <StackPanel x:Name="StackPanel3" Orientation="Horizontal" Height="19" Width="88" Margin="-218,186,-321,172">
+                <TextBox x:Name="Bit7TextBox3" Width="11" IsReadOnly="True" FontFamily="Open Sans" BorderBrush="#FF05A6F0" Background="{x:Null}"/>
+                <TextBox x:Name="Bit6TextBox3" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FF05A6F0" Background="{x:Null}"/>
+                <TextBox x:Name="Bit5TextBox3" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FF05A6F0" Background="{x:Null}"/>
+                <TextBox x:Name="Bit4TextBox3" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FF05A6F0" Background="{x:Null}"/>
+                <TextBox x:Name="Bit3TextBox3" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FF05A6F0" Background="{x:Null}"/>
+                <TextBox x:Name="Bit2TextBox3" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FF05A6F0" Background="{x:Null}"/>
+                <TextBox x:Name="Bit1TextBox3" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FF05A6F0" Background="{x:Null}"/>
+                <TextBox x:Name="Bit0TextBox3" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FF05A6F0" Background="{x:Null}"/>
+            </StackPanel>
+        <StackPanel x:Name="StackPanel4" Orientation="Horizontal" Height="19" Width="88" Margin="-218,186,-510,172">
+            <TextBox x:Name="Bit7TextBox4" Width="11" IsReadOnly="True" FontFamily="Open Sans" BorderBrush="#FFFFBA08" Background="{x:Null}"/>
+            <TextBox x:Name="Bit6TextBox4" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FFFFBA08" Background="{x:Null}"/>
+            <TextBox x:Name="Bit5TextBox4" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FFFFBA08" Background="{x:Null}"/>
+            <TextBox x:Name="Bit4TextBox4" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FFFFBA08" Background="{x:Null}"/>
+            <TextBox x:Name="Bit3TextBox4" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FFFFBA08" Background="{x:Null}"/>
+            <TextBox x:Name="Bit2TextBox4" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FFFFBA08" Background="{x:Null}"/>
+            <TextBox x:Name="Bit1TextBox4" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FFFFBA08" Background="{x:Null}"/>
+            <TextBox x:Name="Bit0TextBox4" Width="11" IsReadOnly="True" FontFamily="Open Sans"  BorderBrush="#FFFFBA08" Background="{x:Null}"/>
+        </StackPanel>
+
+        <Grid HorizontalAlignment="Center" Width="800">
+            <TextBlock FontFamily="Open Sans" HorizontalAlignment="Left" Height="17" Margin="209,298,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" FontWeight="Bold"><Run Language="en-gb" Text="NETMASK"/></TextBlock>
+            <TextBlock FontFamily="Open Sans" HorizontalAlignment="Left" Height="17" Margin="312,298,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" FontWeight="Bold"><Run Language="en-gb" Text="NETWORK"/><Run Text="  IP"/></TextBlock>
+            <TextBlock FontFamily="Open Sans" HorizontalAlignment="Left" Height="17" Margin="442,298,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="88" FontWeight="Bold"><Run Language="en-gb" Text="BROADCAST IP"/></TextBlock>
+            <TextBlock FontFamily="Open Sans" HorizontalAlignment="Left" Height="17" Margin="569,297,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="46" FontWeight="Bold"><Run Language="en-gb" Text="HOSTS"/></TextBlock>
+            <TextBlock FontFamily="Open Sans" HorizontalAlignment="Left" Height="17" Margin="250,348,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="98" FontWeight="Bold"><Run Language="en-gb" Text="FIRST USABLE IP"/></TextBlock>
+            <TextBlock FontFamily="Open Sans" HorizontalAlignment="Left" Height="17" Margin="450,348,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="97" FontWeight="Bold"><Run Language="en-gb" Text="LAST USABLE IP"/></TextBlock>
+            <TextBox x:Name="netMask" FontFamily="Open Sans
+     " HorizontalAlignment="Left" Height="19" Margin="193,279,0,0" TextWrapping="Wrap" Text="255.255.255.240" VerticalAlignment="Top" Width="104" BorderBrush="{x:Null}" Foreground="#FF512BD4" FontWeight="Bold" TextAlignment="Center" IsReadOnly="True" IsUndoEnabled="False"/>
+            <TextBox x:Name="baseIP" FontFamily="Open Sans                  " HorizontalAlignment="Left" Height="19" Margin="307,279,0,0" TextWrapping="Wrap" Text="255.255.255.240" VerticalAlignment="Top" Width="103" BorderBrush="{x:Null}" Foreground="#FF512BD4" FontWeight="Bold" TextAlignment="Center" IsReadOnly="True" IsUndoEnabled="False"/>
+            <TextBox x:Name="broadcastIP" FontFamily="Open Sans                  " HorizontalAlignment="Left" Height="19" Margin="440,279,0,0" TextWrapping="Wrap" Text="255.255.255.240" VerticalAlignment="Top" Width="101" BorderBrush="{x:Null}" Foreground="#FF512BD4" FontWeight="Bold" TextAlignment="Center" IsReadOnly="True" IsUndoEnabled="False"/>
+            <TextBox x:Name="count" FontFamily="Open Sans                  " HorizontalAlignment="Left" Height="19" Margin="546,279,0,0" TextWrapping="Wrap" Text="25686897" VerticalAlignment="Top" Width="100" BorderBrush="{x:Null}" Foreground="#FF512BD4" FontWeight="Bold" TextAlignment="Center" IsReadOnly="True" IsUndoEnabled="False"/>
+            <TextBox x:Name="firstIP" FontFamily="Open Sans                  " HorizontalAlignment="Left" Height="19" Margin="250,329,0,0" TextWrapping="Wrap" Text="255.255.255.240" VerticalAlignment="Top" Width="103" BorderBrush="{x:Null}" Foreground="#FF512BD4" FontWeight="Bold" TextAlignment="Center" IsReadOnly="True" IsUndoEnabled="False"/>
+            <TextBox x:Name="lastIP" FontFamily="Open Sans                  " HorizontalAlignment="Left" Height="19" Margin="450,329,0,0" TextWrapping="Wrap" Text="255.255.255.240" VerticalAlignment="Top" Width="102" BorderBrush="{x:Null}" Foreground="#FF512BD4" FontWeight="Bold" TextAlignment="Center" IsReadOnly="True" IsUndoEnabled="False"/>
+
+            <TextBox Style="{DynamicResource TextBoxRounded}" x:Name="octact1" MaxLength="3" FontFamily="Open Sans" HorizontalAlignment="Left" Height="42" Width="51" Margin="258,166,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Background="#FFF35325" Foreground="White" BorderBrush="{x:Null}" TextAlignment="Center" FontSize="24" PreviewTextInput="NumericInputValidation" TextChanged="octact1_TextChanged" GotFocus="TextBox_GotFocus" />
+            <Ellipse HorizontalAlignment="Left" Height="4" Margin="309,196,0,0" VerticalAlignment="Top" Width="4" Fill="#FF495057"/>
+            <TextBox Style="{DynamicResource TextBoxRounded}" x:Name="octact2" MaxLength="3" FontFamily="Open Sans" HorizontalAlignment="Left" Height="42" Margin="313,166,0,0" TextWrapping="Wrap" Text="88" VerticalAlignment="Top" Width="51" Background="#FF81BC06" Foreground="White" BorderBrush="{x:Null}" TextAlignment="Center" FontSize="24" PreviewTextInput="NumericInputValidation" TextChanged="octact2_TextChanged" GotFocus="TextBox_GotFocus" />
+            <TextBox Style="{DynamicResource TextBoxRounded}" x:Name="octact3" MaxLength="3" FontFamily="Open Sans" HorizontalAlignment="Left" Height="42" Margin="370,166,0,0" TextWrapping="Wrap" Text="135" VerticalAlignment="Top" Width="50" Background="#FF05A6F0" Foreground="White" BorderBrush="{x:Null}" TextAlignment="Center" FontSize="24" PreviewTextInput="NumericInputValidation" TextChanged="octact3_TextChanged" GotFocus="TextBox_GotFocus" />
+            <TextBox Style="{DynamicResource TextBoxRounded}" x:Name="octact4" MaxLength="3" FontFamily="Open Sans" HorizontalAlignment="Left" Height="42" Margin="427,166,0,0" TextWrapping="Wrap" Text="144" VerticalAlignment="Top" Width="51" Background="#FFFFBA08" Foreground="White" BorderBrush="{x:Null}" TextAlignment="Center" FontSize="24" PreviewTextInput="NumericInputValidation" TextChanged="octact4_TextChanged" GotFocus="TextBox_GotFocus" />
+            <TextBox Style="{DynamicResource TextBoxRounded}" x:Name="octact5" MaxLength="2" FontFamily="Open Sans" HorizontalAlignment="Left" Height="42" Margin="497,166,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="51" Background="#FFE9ECEF" Foreground="#FF495057" BorderBrush="{x:Null}" TextAlignment="Center" FontSize="24" PreviewTextInput="octact5_PreviewTextInput" TextChanged="octact5_TextChanged" GotFocus="TextBox_GotFocus" />
+            <TextBlock HorizontalAlignment="Left" FontFamily="Open Sans" Foreground="#FF495057" Height="42" Margin="481,162,0,0" TextWrapping="Wrap" Text="/" FontSize="34" VerticalAlignment="Top" Width="15"/>
+            <Ellipse HorizontalAlignment="Left" Height="4" Margin="365,196,0,0" VerticalAlignment="Top" Width="4" Fill="#FF495057"/>
+            <Ellipse HorizontalAlignment="Left" Height="4" Margin="422,196,0,0" VerticalAlignment="Top" Width="4" Fill="#FF495057"/>
+
+            
+        </Grid>
+    </Grid>
+</Window>
